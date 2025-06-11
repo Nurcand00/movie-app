@@ -50,7 +50,7 @@ const MovieList = ({ title, data, hideSeeAll }) => {
 									className="rounded-3xl"
 									style={{ width: width * 0.35, height: height * 0.22 }}
 								/>
-								<Text className="text-neutral-300 ml-1">
+								<Text className="text-neutral-300 ml-1 mt-2">
 									{item.title.length > 14 //movieName idi dinamık olmadan önce
 										? item.title.slice(0, 14) + "..."
 										: item.title}

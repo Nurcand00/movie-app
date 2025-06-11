@@ -9,17 +9,13 @@ const topRatedMoviesUrl = `${baseUrl}/movie/top_rated`;
 const searchMoviesEndpoint = `${baseUrl}/search/movie`;
 
 //dynamic endpoints
-const movieDetailsEndpoint = (id: string) =>
-	`${baseUrl}/movie/${id}?api_key=${apiKey}`;
-const movieCreditsEndpoint = (id: string) =>
-	`${baseUrl}/movie/${id}/credits?api_key=${apiKey}`;
-const similarMoviesEndpoint = (id: string) =>
-	`${baseUrl}/movie/${id}/similar?api_key=${apiKey}`;
+const movieDetailsEndpoint = (id: string) => `${baseUrl}/movie/${id}`;
+const movieCreditsEndpoint = (id: string) => `${baseUrl}/movie/${id}/credits`;
+const similarMoviesEndpoint = (id: string) => `${baseUrl}/movie/${id}/similar`;
 
-const personDetailsEndpoint = (id: string) =>
-	`${baseUrl}/person/${id}?api_key=${apiKey}/`;
+const personDetailsEndpoint = (id: string) => `${baseUrl}/person/${id}`;
 const personMoviesEndpoint = (id: string) =>
-	`${baseUrl}/person/${id}/movie_credits?api_key=${apiKey}`;
+	`${baseUrl}/person/${id}/movie_credits`;
 
 export const image500 = (path: string) =>
 	path ? `https://image.tmdb.org/t/p/w500${path}` : undefined;
@@ -39,6 +35,7 @@ const apiCall = async (endpoint: any, params?: any) => {
 	const options = {
 		url: endpoint,
 		method: "GET",
+		params: params,
 		headers: {
 			Authorization: `Bearer ${apiKey}`,
 			accept: "application/json",

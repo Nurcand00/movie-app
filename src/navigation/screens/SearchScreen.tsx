@@ -16,14 +16,14 @@ import { XMarkIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import Loading from "../../Component/Loading";
 import debounce from "lodash.debounce";
-import { searchMovies } from "../../api/Moviedb";
+import { fallbackMoviePoster, image185, searchMovies } from "../../api/Moviedb";
 
 const { width, height } = Dimensions.get("window");
 const ios = Platform.OS == "ios";
 
 const SearchScreen = () => {
 	const navigation = useNavigation();
-	const [results, setResults] = useState([1, 2, 3, 4]);
+	const [results, setResults] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const movieName = "Ant-Man and the Wasp: Quantumania";
 
@@ -38,6 +38,7 @@ const SearchScreen = () => {
 			}).then((data: any) => {
 				setLoading(false);
 				console.log("got movies:", data);
+				if (data && data.results) setResults(data.results);
 			});
 		} else {
 			setLoading(false);
@@ -83,18 +84,21 @@ const SearchScreen = () => {
 							return (
 								<TouchableWithoutFeedback
 									key={index}
-									onPress={() => navigation.push("Movie", item)}
+									onPress={() => navigation.push("Movie", { movie: item })}
 								>
 									<View className="space-y-2 mb-4 ">
 										<Image
 											className="rounded-3xl"
-											source={require("../../assets/antman.png")}
+											//source={require("../../assets/antman.png")}
+											source={{
+												uri: image185(item?.poster_path) || fallbackMoviePoster,
+											}}
 											style={{ width: width * 0.44, height: height * 0.33 }}
 										/>
 										<Text className="text-neutral-300 ml-1 mt-3">
-											{movieName.length > 22
-												? movieName.slice(0, 22) + "..."
-												: movieName}
+											{item?.title.length > 22
+												? item?.title.slice(0, 22) + "..."
+												: item?.title}
 										</Text>
 									</View>
 								</TouchableWithoutFeedback>
