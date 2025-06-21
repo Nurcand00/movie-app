@@ -17,7 +17,7 @@ interface TrendingMoviesProps {
 
 interface MovieCardProps {
 	item: any;
-	handleClick: any;
+	handleClick: (item: any) => void;
 }
 
 const { width, height } = Dimensions.get("window");
