@@ -9,15 +9,20 @@ import {
 	ScrollView,
 } from "react-native";
 import React from "react";
-
 import { useNavigation } from "@react-navigation/native";
 import { fallbackMoviePoster, image185 } from "../api/Moviedb";
 
+interface MovieListProps {
+	title: string;
+	data: any;
+	hideSeeAll: any;
+}
+
 const { width, height } = Dimensions.get("window");
 
-const MovieList = ({ title, data, hideSeeAll }) => {
-	const movieName = "Ant-Man and the Wasp: Quantumania";
+const MovieList = ({ title, data, hideSeeAll }: MovieListProps) => {
 	const navigation = useNavigation();
+	const movieName = "Ant-Man and the Wasp: Quantumania";
 
 	return (
 		<View className="mb-8 space-y-4">

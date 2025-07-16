@@ -19,11 +19,7 @@ import {
 
 const ios = Platform.OS == "ios";
 
-type TrendingMoviesProps = {
-	data: any[];
-};
-
-const HomeScreen: React.FC<TrendingMoviesProps> = () => {
+const HomeScreen = () => {
 	const [trending, setTrending] = useState([]); //tüm stateler 1,2,3 idi dinamik yapınca sildik filmlerin kendi isimleri gelmesi gerekıyordu.
 	const [upcoming, setUpcoming] = useState([]);
 	const [topRated, setTopRated] = useState([]);
@@ -39,19 +35,19 @@ const HomeScreen: React.FC<TrendingMoviesProps> = () => {
 	const getTrendingMovies = async () => {
 		const data = await fetchTrendingMovies();
 		console.log("Trending Movies: ", data);
-		if (data && data.results) setTrending(data.results);
+		if (data?.results) setTrending(data.results);
 		setLoading(false);
 	};
 	const getUpcomingMovies = async () => {
 		const data = await fetchUpcomingMovies();
 		console.log("Upcoming Movies: ", data);
-		if (data && data.results) setUpcoming(data.results);
+		if (data?.results) setUpcoming(data.results);
 		setLoading(false);
 	};
 	const getTopRatedMovies = async () => {
 		const data = await fetchTopRatedMovies();
 		console.log("Toprated Movies: ", data);
-		if (data && data.results) setTopRated(data.results);
+		if (data?.results) setTopRated(data.results);
 		setLoading(false);
 	};
 
@@ -78,8 +74,8 @@ const HomeScreen: React.FC<TrendingMoviesProps> = () => {
 					contentContainerStyle={{ paddingBottom: 10 }}
 				>
 					{trending.length > 0 && <TrendingMovies data={trending} />}
-					<MovieList title="Upcoming" data={upcoming} />
-					<MovieList title="Top Rated" data={topRated} />
+					<MovieList title="Upcoming" data={upcoming} hideSeeAll={false} />
+					<MovieList title="Top Rated" data={topRated} hideSeeAll={false} />
 				</ScrollView>
 			)}
 		</View>

@@ -27,8 +27,13 @@ const { width, height } = Dimensions.get("window");
 const ios = Platform.OS === "ios";
 const topMargin = ios ? "" : "mt-3";
 
+interface MovieProps  {
+	id: number;
+};
+
 const MovieScreen = () => {
-	const { params: { movie: item } = {} } = useRoute(); //diğer sayfadan nasıl aldığına iyi bak parametreyi yoksa imgler gelmez.
+	const { params: { movie: item } = {} } = useRoute() as {params:{movie: MovieProps}};        
+
 	const [favorite, setFavorite] = useState(false);
 	const navigation = useNavigation();
 	const [cast, setCast] = useState([]);
@@ -38,6 +43,7 @@ const MovieScreen = () => {
 	const movieName = "Ant-Man and the Wasp: Quantumania";
 
 	useEffect(() => {
+		if (!item) return;
 		//console.log("itemid:", item.id);
 		setLoading(true);
 		getMovieDetails(item.id);
@@ -45,22 +51,22 @@ const MovieScreen = () => {
 		getSimilarMovies(item.id);
 	}, [item]);
 
-	const getMovieDetails = async (id: string) => {
+	const getMovieDetails = async (id: number) => {
 		const data = await fetchMovieDetails(id);
 		//console.log("Movie Details: ", data);
 		if (data) setMovie(data);
 		setLoading(false);
 	};
 
-	const getMovieCredits = async (id: string) => {
+	const getMovieCredits = async (id: number) => {
 		const data = await fetchMovieCredits(id);
-		//console.log("Movie Credits: ", data);
+		console.log("Movie Credits: ", data);
 		if (data && data.cast) setCast(data.cast);
 	};
 
-	const getSimilarMovies = async (id: string) => {
+	const getSimilarMovies = async (id: number) => {
 		const data = await fetchSimilarMovies(id);
-		//console.log("Movie Similar:", data);
+		console.log("Movie Similar:", data);
 		if (data && data.results) setSimilarMovies(data.results); //terminalde ne döndüğü yazıyor
 	};
 

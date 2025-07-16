@@ -34,7 +34,7 @@ const Cast = ({ cast, navigation }: CastProps) => {
 					cast.map((person, index) => {
 						return (
 							<TouchableOpacity
-								onPress={() => navigation.navigate("Person", { person })}
+								onPress={() => navigation.navigate("Person", { person })} //map 'deki person verisi gidiyor aynı oldugu için
 								key={index}
 								className="mr-7 items-center"
 							>

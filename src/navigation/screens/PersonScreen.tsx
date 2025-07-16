@@ -21,17 +21,47 @@ import {
 	image342,
 } from "../../api/Moviedb";
 
+interface Personprops {
+	name: string;
+	place_of_birth?: string;
+	gender?: number;
+	birthday?: string;
+	known_for_department?: string;
+	popularity?: number;
+	biography?: string;
+	profile_path?: string;
+}
+
+interface Movie {
+	id: number;
+	title?: string;
+	poster_path?: string;
+	// Gerekirse daha fazla alan eklenebilir
+}
+
+export interface PersonParam {
+	id: string;
+	profile_path?: string;
+}
+
 const { width, height } = Dimensions.get("window");
 const ios = Platform.OS == "ios";
 const verticalMargin = ios ? "" : "my-3";
 
 const PersonScreen = () => {
-	const { params: { person } = {} } = useRoute();
+	const {
+		params: { person },
+	} = useRoute() as {
+		params: {
+			person: PersonParam;
+		};
+	};
+
 	const navigation = useNavigation();
-	const [favorite, setFavorite] = useState(false);
-	const [personMovies, setPersonMovies] = useState([]);
-	const [persons, setPersons] = useState({});
-	const [loading, setLoading] = useState(false);
+	const [favorite, setFavorite] = useState<Boolean>(false);
+	const [personMovies, setPersonMovies] = useState<Movie[]>([]);
+	const [persons, setPersons] = useState<Personprops | null>(null);
+	const [loading, setLoading] = useState<Boolean>(false);
 
 	useEffect(() => {
 		setLoading(true);

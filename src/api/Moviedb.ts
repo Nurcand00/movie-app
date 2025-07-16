@@ -9,12 +9,12 @@ const topRatedMoviesUrl = `${baseUrl}/movie/top_rated`;
 const searchMoviesEndpoint = `${baseUrl}/search/movie`;
 
 //dynamic endpoints
-const movieDetailsEndpoint = (id: string) => `${baseUrl}/movie/${id}`;
-const movieCreditsEndpoint = (id: string) => `${baseUrl}/movie/${id}/credits`;
-const similarMoviesEndpoint = (id: string) => `${baseUrl}/movie/${id}/similar`;
+const movieDetailsEndpoint = (id: number) => `${baseUrl}/movie/${id}`;
+const movieCreditsEndpoint = (id: number) => `${baseUrl}/movie/${id}/credits`;
+const similarMoviesEndpoint = (id: number) => `${baseUrl}/movie/${id}/similar`;
 
-const personDetailsEndpoint = (id: string) => `${baseUrl}/person/${id}`;
-const personMoviesEndpoint = (id: string) =>
+const personDetailsEndpoint = (id: number) => `${baseUrl}/person/${id}`;
+const personMoviesEndpoint = (id: number) =>
 	`${baseUrl}/person/${id}/movie_credits`;
 
 export const image500 = (path: string) =>
@@ -45,7 +45,6 @@ const apiCall = async (endpoint: any, params?: any) => {
 	try {
 		const data = await axios.post("http://localhost:3002/tmdb", options);
 		console.log("DATA", data);
-
 		return data.data;
 	} catch (error) {
 		console.log("error:", error);
@@ -65,21 +64,21 @@ export const fetchTopRatedMovies = () => {
 	return apiCall(topRatedMoviesUrl);
 };
 
-export const fetchMovieDetails = (id: string) => {
+export const fetchMovieDetails = (id: number) => {
 	return apiCall(movieDetailsEndpoint(id));
 };
-export const fetchMovieCredits = (id: string) => {
+export const fetchMovieCredits = (id: number) => {
 	return apiCall(movieCreditsEndpoint(id));
 };
-export const fetchSimilarMovies = (id: string) => {
+export const fetchSimilarMovies = (id: number) => {
 	return apiCall(similarMoviesEndpoint(id));
 };
 
-export const fetchPersonDetails = (id: string) => {
+export const fetchPersonDetails = (id: number) => {
 	return apiCall(personDetailsEndpoint(id));
 };
 
-export const fetchPersonMovies = (id: string) => {
+export const fetchPersonMovies = (id: number) => {
 	return apiCall(personMoviesEndpoint(id));
 };
 

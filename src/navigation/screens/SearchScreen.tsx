@@ -36,9 +36,10 @@ const SearchScreen = () => {
 				language: "en-US",
 				page: 1,
 			}).then((data: any) => {
+				// searchMovies fonksiyonundan gelen veri promise döndüğü için burda da async kullanmadıgımızdan dolayı then. ile yakalayıp promise dönmüş gibi yaptık. Yani await gibi then ile beklettik
 				setLoading(false);
 				console.log("got movies:", data);
-				if (data && data.results) setResults(data.results);
+				if (data?.results) setResults(data.results);
 			});
 		} else {
 			setLoading(false);
@@ -68,7 +69,7 @@ const SearchScreen = () => {
 
 			{/* useState boş olursa cıkacak ımg en altta */}
 
-			{loading ? ( // ekran açılırken loading gösterilecek
+			{loading ? (
 				<Loading />
 			) : results.length > 0 ? (
 				<ScrollView
