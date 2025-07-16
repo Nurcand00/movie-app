@@ -17,13 +17,14 @@ import { useNavigation } from "@react-navigation/native";
 import Loading from "../../Component/Loading";
 import debounce from "lodash.debounce";
 import { fallbackMoviePoster, image185, searchMovies } from "../../api/Moviedb";
+import { Movie } from "./PersonScreen";
 
 const { width, height } = Dimensions.get("window");
 const ios = Platform.OS == "ios";
 
 const SearchScreen = () => {
 	const navigation = useNavigation();
-	const [results, setResults] = useState([]);
+	const [results, setResults] = useState<Movie[]>([]);
 	const [loading, setLoading] = useState(false);
 	const movieName = "Ant-Man and the Wasp: Quantumania";
 
@@ -97,9 +98,12 @@ const SearchScreen = () => {
 											style={{ width: width * 0.44, height: height * 0.33 }}
 										/>
 										<Text className="text-neutral-300 ml-1 mt-3">
-											{item?.title.length > 22
+											{item?.title
+
+											? item?.title.length > 22
 												? item?.title.slice(0, 22) + "..."
-												: item?.title}
+												: item?.title
+											  : "N/A"}
 										</Text>
 									</View>
 								</TouchableWithoutFeedback>

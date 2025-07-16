@@ -31,6 +31,23 @@ interface MovieProps  {
 	id: number;
 };
 
+interface MovieType {
+	title?: string;
+	id?: number;
+	status?: string;
+	release_date?: string;
+	runtime?: number;
+	overview?: string;
+	poster_path?: string;
+	genres?: Genre[];
+};
+
+interface Genre {
+  id: number;
+  name: string;
+}
+
+
 const MovieScreen = () => {
 	const { params: { movie: item } = {} } = useRoute() as {params:{movie: MovieProps}};        
 
@@ -39,12 +56,12 @@ const MovieScreen = () => {
 	const [cast, setCast] = useState([]);
 	const [similarMovies, setSimilarMovies] = useState([]);
 	const [loading, setLoading] = useState(false);
-	const [movie, setMovie] = useState({});
+	const [movie, setMovie] = useState<MovieType>({});
 	const movieName = "Ant-Man and the Wasp: Quantumania";
 
 	useEffect(() => {
+		console.log("MovieScreen item: ", item);
 		if (!item) return;
-		//console.log("itemid:", item.id);
 		setLoading(true);
 		getMovieDetails(item.id);
 		getMovieCredits(item.id);
@@ -140,7 +157,7 @@ const MovieScreen = () => {
 
 				<View className="flex-row justify-center mx-4 gap-2">
 					{movie?.genres?.map((genre, index) => {
-						let showDot = index + 1 != movie.genres.length; //son eleman için nokta gösterme!
+						let showDot = index + 1 != movie.genres?.length; //son eleman için nokta gösterme!
 						return (
 							<Text
 								key={index}

@@ -17,13 +17,13 @@ const personDetailsEndpoint = (id: number) => `${baseUrl}/person/${id}`;
 const personMoviesEndpoint = (id: number) =>
 	`${baseUrl}/person/${id}/movie_credits`;
 
-export const image500 = (path: string) =>
+export const image500 = (path?: string) =>
 	path ? `https://image.tmdb.org/t/p/w500${path}` : undefined;
 
-export const image342 = (path: string) =>
+export const image342 = (path?: string) =>
 	path ? `https://image.tmdb.org/t/p/w342${path}` : undefined;
 
-export const image185 = (path: string) =>
+export const image185 = (path?: string) =>
 	path ? `https://image.tmdb.org/t/p/w185${path}` : undefined;
 
 export const fallbackMoviePoster =
